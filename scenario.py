@@ -22,10 +22,12 @@ class Agent(mango.Agent):
         super().__init__(container)
 
 async def _create_container(host, port):
+        print('1 container is created')
         return await mango.create_container(addr=(host, port))
     
 async def _create_agent(container, **params):
         agent = Agent(container, **params)
+        print('1 agent is created')
         return agent
 
 host = '0.0.0.0'
@@ -33,5 +35,6 @@ port = 5678
 loop = asyncio.get_event_loop()
 container = loop.run_until_complete(_create_container(host, port))
 agent = loop.run_until_complete(_create_agent(container))
-
+check_file_descriptors()
+agent = loop.run_until_complete(_create_agent(container))
 check_file_descriptors()
